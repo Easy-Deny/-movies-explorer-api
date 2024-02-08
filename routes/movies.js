@@ -21,7 +21,7 @@ Router.post('/movies', celebrate({
     nameRU: Joi.string().required(),
     nameEN: Joi.string().required(),
   }),
-}), createCard);
+}), createMovie);
 Router.delete('/movies/:_Id', celebrate({
   params: Joi.object().keys({
     _Id: Joi.string().length(24).hex().required(),
