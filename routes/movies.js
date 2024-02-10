@@ -4,7 +4,7 @@ const {
   getMovies,
   createMovie,
   deleteMovie,
-} = require('../controllers/cards');
+} = require('../controllers/movies');
 
 Router.get('/movies', getMovies);
 Router.post('/movies', celebrate({
