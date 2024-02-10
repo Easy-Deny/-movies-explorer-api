@@ -30,9 +30,9 @@ const deleteMovie = (req, res, next) => {
       if (!movie) {
         throw new NotFoundError('Movie not found');
       }
-     // if (!movie.owner.equals(req.user._id)) {
-     //   throw new ForbiddenError('Movie not deleted');
-     // }
+      if (!movie.owner.equals(req.user._id)) {
+        throw new ForbiddenError('Movie not deleted');
+      }
       movie.deleteOne()
         .then(() => res.status(200).send(movie))
         .catch(next);
