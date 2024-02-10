@@ -4,13 +4,13 @@ const NotFoundError = require('../errors/not-found-error');
 const ForbiddenError = require('../errors/forbidden-error');
 
 const createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailerLink, thumbnail, nameRU, nameEN} = req.body;
-  return MovieModel.create({ country, director, duration, year, description, image, trailerLink, thumbnail, owner: req.user, nameRU, nameEN })
+  const { country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN} = req.body;
+  return MovieModel.create({ country, director, duration, year, description, image, trailerLink, thumbnail, owner: req.user, movieId, nameRU, nameEN })
     .then((data) => res.status(201).send(data))
     .catch((err) => {
       console.log(err);
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Card not added: ${err.name}: ${err.message}`));
+        next(new BadRequestError(`Movie not added: ${err.name}: ${err.message}`));
       } else {
         next(err);
       }
