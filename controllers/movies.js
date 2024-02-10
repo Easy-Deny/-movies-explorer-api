@@ -18,7 +18,7 @@ const createMovie = (req, res, next) => {
 };
 
 const getMovies = (req, res, next) => {
-  CardModel.find()
+  MovieModel.find()
     .then((movies) => res.status(200).send(movies))
     .catch(next);
 };
@@ -26,12 +26,13 @@ const getMovies = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   MovieModel.findById(req.params.movieId)
     .then((movie) => {
+      console.log(`id: ${req.params.movieId}`)
       if (!movie) {
-        throw new NotFoundError('Card not found');
+        throw new NotFoundError('Movie not found');
       }
-      if (!movie.owner.equals(req.user._id)) {
-        throw new ForbiddenError('Card not deleted');
-      }
+     // if (!movie.owner.equals(req.user._id)) {
+     //   throw new ForbiddenError('Movie not deleted');
+     // }
       movie.deleteOne()
         .then(() => res.status(200).send(movie))
         .catch(next);
@@ -39,7 +40,7 @@ const deleteMovie = (req, res, next) => {
     .catch((err) => {
       console.log(err);
       if (err.name === 'CastError') {
-        next(new BadRequestError(`Invalid Card Id: ${err.name}: ${err.message}`));
+        next(new BadRequestError(`Invalid Movie Id: ${err.name}: ${err.message}`));
       } else {
         next(err);
       }
