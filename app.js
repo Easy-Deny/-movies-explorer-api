@@ -6,7 +6,7 @@ const errorHandler = require('./errors/error-handler');
 
 const NotFoundError = require('./errors/not-found-error');
 
-mongoose.connect('mongodb://127.0.0.1:27017/moviedb', {
+mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewUrlParser: true,
 })
   .then(() => {
