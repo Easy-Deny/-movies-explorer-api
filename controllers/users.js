@@ -2,7 +2,7 @@ const bcrypt = require('bcryptjs');
 const UserModel = require('../models/user');
 const { getJwtToken } = require('../utils/jwt');
 const BadRequestError = require('../errors/bad-request-error');
-const NotRightError = require('../errors/not-right-error');
+const UnauthorizedError = require('../errors/unauthorized-error');
 const ConflictError = require('../errors/conflict-error');
 
 const createUser = (req, res, next) => {
@@ -38,12 +38,12 @@ const login = (req, res, next) => {
   UserModel.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new NotRightError('user does not exist');
+        throw new UnauthorizedError('Username or password is not correct');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
           if (!matched) {
-            return Promise.reject(new NotRightError('password is not correct'));
+            return Promise.reject(new UnauthorizedError('Password is not correct'));
           }
           const token = getJwtToken({ _id: user._id });
           return res.status(200).send({ token });
