@@ -25,6 +25,7 @@ const allowedCors = [
   'http://praktikum.tk',
   'http://localhost:3000',
   'https://localhost:3000',
+  'http://188.68.96.175',
   'http://easydeny.nomoredomainswork.ru',
   'https://easydeny.nomoredomainswork.ru',
 ];
