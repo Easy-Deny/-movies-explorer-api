@@ -23,10 +23,10 @@ const createUser = (req, res, next) => {
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError(`Incorrect user info error: ${err.name}: ${err.message}`));
+        return next(new BadRequestError(`Incorrect user info error`));
       }
       if (err.code === 11000) {
-        return next(new ConflictError(`user with an email address exists: ${err.name}: ${err.message}`));
+        return next(new ConflictError(`user with an email address exists`));
       }
       next(err);
     });
@@ -57,7 +57,7 @@ const updateUser = (req, res, next) => UserModel
   .catch((err) => {
     console.log(err);
     if (err.name === 'ValidationError') {
-      return next(new BadRequestError(`Incorrect user info: ${err.name}: ${err.message}`));
+      return next(new BadRequestError(`Incorrect user info`));
     }
     next(err);
   });
