@@ -21,11 +21,11 @@ const userRouter = require('./routes/users');
 const movieRouter = require('./routes/movies');
 
 const allowedCors = [
-  //'https://praktikum.tk',
-  //'http://praktikum.tk',
+  'https://praktikum.tk',
+  'http://praktikum.tk',
   'http://localhost:3000',
-  //'http://easy-deny.pr15.nomoredomainsmonster.ru',
-  //'https://easy-deny.pr15.nomoredomainsmonster.ru',
+  'http://easydeny.diplom.nomoredomainswork.ru',
+  'https://easydeny.diplom.nomoredomainswork.ru',
 ];
 
 app.use(function (req, res, next) {
