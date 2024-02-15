@@ -24,8 +24,9 @@ const allowedCors = [
   'https://praktikum.tk',
   'http://praktikum.tk',
   'http://localhost:3000',
-  'http://easydeny.diplom.nomoredomainswork.ru',
-  'https://easydeny.diplom.nomoredomainswork.ru',
+  'https://localhost:3000',
+  'http://easydeny.nomoredomainswork.ru',
+  'https://easydeny.nomoredomainswork.ru',
 ];
 
 app.use((req, res, next) => {
