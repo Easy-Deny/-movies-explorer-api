@@ -1,8 +1,7 @@
 const bcrypt = require('bcryptjs');
 const UserModel = require('../models/user');
 const { getJwtToken } = require('../utils/jwt');
-const BadRequestError = require('../errors/badrequest-error');
-const NotFoundError = require('../errors/not-found-error');
+const BadRequestError = require('../errors/bad-request-error');
 const NotRightError = require('../errors/not-right-error');
 const ConflictError = require('../errors/conflict-error');
 
@@ -19,16 +18,18 @@ const createUser = (req, res, next) => {
       name,
     }))
     .then((data) => res.status(201).send({
-      _id: data._id,  email: data.email, name: data.name,
+      _id: data._id,
+      email: data.email,
+      name: data.name,
     }))
     .catch((err) => {
       if (err.name === 'ValidationError') {
-        return next(new BadRequestError(`Incorrect user info error`));
+        return next(new BadRequestError('Incorrect user info error'));
       }
       if (err.code === 11000) {
-        return next(new ConflictError(`user with an email address exists`));
+        return next(new ConflictError('User with an email address exists'));
       }
-      next(err);
+      return next(err);
     });
 };
 
@@ -57,9 +58,9 @@ const updateUser = (req, res, next) => UserModel
   .catch((err) => {
     console.log(err);
     if (err.name === 'ValidationError') {
-      return next(new BadRequestError(`Incorrect user info`));
+      return next(new BadRequestError('Incorrect user info'));
     }
-    next(err);
+    return next(err);
   });
 
 const getUser = (req, res, next) => UserModel

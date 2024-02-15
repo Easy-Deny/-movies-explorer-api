@@ -1,16 +1,41 @@
 const MovieModel = require('../models/movie');
-const BadRequestError = require('../errors/badrequest-error');
+const BadRequestError = require('../errors/bad-request-error');
 const NotFoundError = require('../errors/not-found-error');
 const ForbiddenError = require('../errors/forbidden-error');
 
 const createMovie = (req, res, next) => {
-  const { country, director, duration, year, description, image, trailerLink, thumbnail, movieId, nameRU, nameEN} = req.body;
-  return MovieModel.create({ country, director, duration, year, description, image, trailerLink, thumbnail, owner: req.user, movieId, nameRU, nameEN })
+  const {
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    movieId,
+    nameRU,
+    nameEN,
+  } = req.body;
+  return MovieModel.create({
+    country,
+    director,
+    duration,
+    year,
+    description,
+    image,
+    trailerLink,
+    thumbnail,
+    owner: req.user,
+    movieId,
+    nameRU,
+    nameEN,
+  })
     .then((data) => res.status(201).send(data))
     .catch((err) => {
       console.log(err);
       if (err.name === 'ValidationError') {
-        next(new BadRequestError(`Movie not added: ${err.name}: ${err.message}`));
+        next(new BadRequestError('Movie not added'));
       } else {
         next(err);
       }
@@ -18,7 +43,7 @@ const createMovie = (req, res, next) => {
 };
 
 const getMovies = (req, res, next) => {
-  MovieModel.find({owner: req.user._id})
+  MovieModel.find({ owner: req.user._id })
     .then((movies) => res.status(200).send(movies))
     .catch(next);
 };
@@ -26,7 +51,7 @@ const getMovies = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   MovieModel.findById(req.params.movieId)
     .then((movie) => {
-      console.log(`id: ${req.params.movieId}`)
+      console.log(`id: ${req.params.movieId}`);
       if (!movie) {
         throw new NotFoundError('Movie not found');
       }
@@ -40,7 +65,7 @@ const deleteMovie = (req, res, next) => {
     .catch((err) => {
       console.log(err);
       if (err.name === 'CastError') {
-        next(new BadRequestError(`Invalid Movie Id: ${err.name}: ${err.message}`));
+        next(new BadRequestError('Invalid Movie'));
       } else {
         next(err);
       }
