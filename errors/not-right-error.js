@@ -1,6 +1,6 @@
 class NotRightError extends Error {
   constructor(message) {
-    super(message);
+    super(`Error 401: ${message}`);
     this.statusCode = 401;
   }
 }
