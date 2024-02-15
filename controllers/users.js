@@ -56,7 +56,6 @@ const updateUser = (req, res, next) => UserModel
   .findByIdAndUpdate(req.user, req.body, { new: true, runValidators: true })
   .then((data) => res.status(200).send(data))
   .catch((err) => {
-    console.log(err);
     if (err.name === 'ValidationError') {
       return next(new BadRequestError('Incorrect user info'));
     }

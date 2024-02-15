@@ -33,7 +33,6 @@ const createMovie = (req, res, next) => {
   })
     .then((data) => res.status(201).send(data))
     .catch((err) => {
-      console.log(err);
       if (err.name === 'ValidationError') {
         next(new BadRequestError('Movie not added'));
       } else {
@@ -51,7 +50,6 @@ const getMovies = (req, res, next) => {
 const deleteMovie = (req, res, next) => {
   MovieModel.findById(req.params.movieId)
     .then((movie) => {
-      console.log(`id: ${req.params.movieId}`);
       if (!movie) {
         throw new NotFoundError('Movie not found');
       }
@@ -63,7 +61,6 @@ const deleteMovie = (req, res, next) => {
         .catch(next);
     })
     .catch((err) => {
-      console.log(err);
       if (err.name === 'CastError') {
         next(new BadRequestError('Invalid Movie'));
       } else {
