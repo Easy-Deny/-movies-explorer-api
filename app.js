@@ -55,7 +55,7 @@ app.get('/crash-test', () => {
 app.use(userRouter);
 app.use(movieRouter);
 app.all('*', (req, res, next) => {
-  next(new NotFoundError('404! Page not found'));
+  next(new NotFoundError('Page not found'));
 });
 app.use(errorLogger);
 app.use(errors());

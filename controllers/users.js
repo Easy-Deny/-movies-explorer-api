@@ -38,7 +38,7 @@ const login = (req, res, next) => {
   UserModel.findOne({ email }).select('+password')
     .then((user) => {
       if (!user) {
-        throw new NotRightError('user not found');
+        throw new NotRightError('user does not exist');
       }
       return bcrypt.compare(password, user.password)
         .then((matched) => {
