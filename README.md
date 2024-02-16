@@ -10,4 +10,4 @@
 
 IP-адрес 62.84.123.132
 
-Backend https://api.easydeny.nomoredomainsmonster.ru
+Backend https://api.easydeny.nomoredomainswork.ru
