@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./errors/error-handler');
+const limiter = require('./utils/limiter');
 
 const { NODE_ENV, BASE_PATH } = process.env;
 
@@ -52,6 +53,7 @@ app.use((req, res, next) => {
 
 app.use(express.json());
 app.use(requestLogger);
+app.use(limiter);
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
