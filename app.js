@@ -5,6 +5,7 @@ const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./errors/error-handler');
 const limiter = require('./utils/limiter');
+const helmetModule = require('./utils/helmet');
 
 const { NODE_ENV, BASE_PATH } = process.env;
 
@@ -54,6 +55,7 @@ app.use((req, res, next) => {
 app.use(express.json());
 app.use(requestLogger);
 app.use(limiter);
+app.use(helmetModule);
 app.get('/crash-test', () => {
   setTimeout(() => {
     throw new Error('Сервер сейчас упадёт');
