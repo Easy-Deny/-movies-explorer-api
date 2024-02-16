@@ -1,12 +1,15 @@
+require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const { errors } = require('celebrate');
 const { requestLogger, errorLogger } = require('./middlewares/logger');
 const errorHandler = require('./errors/error-handler');
 
+const { NODE_ENV, BASE_PATH } = process.env;
+
 const NotFoundError = require('./errors/not-found-error');
 
-mongoose.connect('mongodb://127.0.0.1:27017/bitfilmsdb', {
+mongoose.connect(NODE_ENV === 'production' ? BASE_PATH : 'mongodb://127.0.0.1:27017/bitfilmsdb', {
   useNewUrlParser: true,
 })
   .then(() => {
