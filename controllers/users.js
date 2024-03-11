@@ -46,7 +46,7 @@ const login = (req, res, next) => {
             return Promise.reject(new UnauthorizedError('Password is not correct'));
           }
           const token = getJwtToken({ _id: user._id });
-          return res.status(200).send({ token, user });
+          return res.status(200).send({ token, email: user.email, name: user.name });
         });
     })
     .catch(next);
