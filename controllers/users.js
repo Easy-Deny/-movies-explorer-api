@@ -78,7 +78,11 @@ const updateUser = (req, res, next) => {
 
 const getUser = (req, res, next) => UserModel
   .findById(req.user._id)
-  .then((user) => res.status(200).send(user))
+  .then((user) => {
+    if (user) {
+      return res.status(200).send(user);
+    }
+  })
   .catch(next);
 
 module.exports = {
