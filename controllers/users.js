@@ -59,21 +59,22 @@ const login = (req, res, next) => {
 
 const updateUser = (req, res, next) => {
   const { email } = req.body;
-  UserModel.findOne({ email })
-    .then((user) => {
-      if (user) {
-        return next(new BadRequestError('email exists'));
+  /*  UserModel.findOne({ email })
+      .then((user) => {
+        if (user) {
+          return next(new BadRequestError('email exists'));
+              } */
+  return UserModel
+    .findByIdAndUpdate(req.user, req.body, { new: true, runValidators: true })
+    .then((data) => res.status(200).send(data))
+    .catch((err) => {
+      if (err.name === 'ValidationError') {
+        return next(new BadRequestError('Incorrect user info'));
       }
-      return UserModel
-        .findByIdAndUpdate(req.user, req.body, { new: true, runValidators: true })
-        .then((data) => res.status(200).send(data))
-        .catch((err) => {
-          if (err.name === 'ValidationError') {
-            return next(new BadRequestError('Incorrect user info'));
-          }
-          return next(err);
-        });
+      return next(err);
     });
+  /*  });
+  */
 };
 
 const getUser = (req, res, next) => UserModel
