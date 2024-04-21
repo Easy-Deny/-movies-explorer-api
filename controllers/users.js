@@ -74,8 +74,7 @@ const updateUser = (req, res, next) => {
           }
           return next(err);
         });
-    });
-
+    })
 };
 
 const getUser = (req, res, next) => UserModel
